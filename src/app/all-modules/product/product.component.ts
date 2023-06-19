@@ -10,20 +10,7 @@ import { ToasterService } from 'src/app/core/services/toastr/toaster.service';
   styleUrls: ['./product.component.css']
 })
 export class ProductComponent implements OnInit {
-//   {
-//     "product": {
-//         "prdName": "Polo Shirt",
-//         "tagLine": "shirt 001",
-//         "description": "ABC",
-//         "clientPrdId": "1232"
-//     },
-//     "prdCategory": [
-//         {
-//             "catId": "1",
-//             "subCatId": "1"
-//         }
-//     ]
-// }
+
   productForm = new FormGroup({
     prdName:new FormControl('',Validators.required),
     tagLine: new FormControl('', Validators.required),
@@ -44,12 +31,12 @@ export class ProductComponent implements OnInit {
           return slNo;
         },
       },
-      sub_category_name: {
-        title: 'Sub Category Name',
+      name: {
+        title: 'Product Name',
         filter: true
       },
-      category_name: {
-        title: 'Category Name',
+      tag_line: {
+        title: 'Tag Line',
         filter: true
       },
       description: {
@@ -81,7 +68,8 @@ export class ProductComponent implements OnInit {
   };
   category
   subcategory
-  data:any
+  products:any
+
   constructor(
     private toaster: ToasterService,
     private catAPI: CatService,
@@ -94,7 +82,7 @@ export class ProductComponent implements OnInit {
       this.category = res.data
     })
     this.productAPI.getAllProducts().subscribe((res:any)=>{
-      this.data = res.data
+      this.products = res.data
     })
 
   }

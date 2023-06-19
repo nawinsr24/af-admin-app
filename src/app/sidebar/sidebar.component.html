@@ -17,11 +17,14 @@
                     <li [ngClass]="[activeRoute === 'sub-cat' ? 'active' : '']">
                         <a routerLink="/sub-cat"><i class="feather-radio"></i> <span>Sub Category</span></a>
                     </li>
+                    <li [ngClass]="[activeRoute === 'size' ? 'active' : '']">
+                        <a routerLink="/size"><i class="feather-sliders"></i> <span>Size</span></a>
+                    </li>
                     <li [ngClass]="[activeRoute === 'products' ? 'active' : '']">
                         <a routerLink="/products"><i class="feather-briefcase"></i> <span>Products</span></a>
                     </li>
-                    <li [ngClass]="[activeRoute === '' ? 'active' : '']">
-                        <a routerLink="/"><i class="feather-bar-chart-2"></i> <span>Stocks</span></a>
+                    <li [ngClass]="[activeRoute === 'stocks' ? 'active' : '']">
+                        <a routerLink="/stocks"><i class="feather-bar-chart-2"></i> <span>Stocks</span></a>
                     </li>
                     <li [ngClass]="[activeRoute === '' ? 'active' : '']">
                         <a routerLink="/"><i class="feather-percent"></i> <span>Discounts</span></a>

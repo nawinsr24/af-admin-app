@@ -15,4 +15,13 @@ export class ProductService {
   public getAllProducts() {
     return this.http.get(APIENDPOINTS.product)
   }
+
+
+  public addStock(data: any) {
+    return this.http.post(APIENDPOINTS.stock, data)
+  }
+  public getAllStock() {
+    return this.http.get(APIENDPOINTS.stock)
+  }
+
 }

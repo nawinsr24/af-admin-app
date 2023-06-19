@@ -1,0 +1,17 @@
+.div {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+img {
+  width: 250px;
+  height: auto;
+  margin: 5px;
+  cursor: move;
+  border: solid 1px #9a55ff;
+}
+
+.dragging {
+  opacity: 0.5;
+}

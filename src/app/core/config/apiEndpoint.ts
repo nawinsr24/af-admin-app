@@ -3,5 +3,9 @@ export enum APIENDPOINTS{
     category="/admin/category",
 
     subCategory="/admin/subcategory",
-    product="/admin/product"
+    product="/admin/product",
+
+    size="/admin/size",
+
+    stock="/admin/stock"
 }

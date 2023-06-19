@@ -1,1 +1,221 @@
-<p>stock works!</p>
+<div>
+    <div class="page-wrapper">
+
+        <!-- Page Content -->
+        <div class="content container-fluid">
+
+            <div class="crms-title row bg-white">
+                <div class="col  p-0">
+                    <h3 class="page-title m-0">
+                        <span class="page-title-icon bg-gradient-primary text-white me-2">
+                            <i class="feather-grid"></i>
+                        </span>Stocks
+                    </h3>
+                </div>
+                <div class="col p-0 text-end">
+                    <!-- <ul class="breadcrumb bg-white float-end m-0 ps-0 pe-0">
+                                 <li class="breadcrumb-item"><a routerLink ="/dashboard">Dashboard</a></li>
+                                 <li class="breadcrumb-item active">Category</li>
+                             </ul> -->
+                </div>
+            </div>
+
+            <!-- Page Header -->
+            <div class="page-header pt-3 mb-0 ">
+                <div class="row">
+                    <div class="col">
+
+                    </div>
+                    <div class="col text-end">
+                        <ul class="list-inline-item ps-0">
+
+                            <li class="list-inline-item">
+                                <button
+                                    class="add btn btn-gradient-primary font-weight-bold text-white todo-list-add-btn btn-rounded"
+                                    id="add-task" data-bs-toggle="modal" data-bs-target="#add_task">New
+                                    Stock</button>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- /Page Header -->
+
+
+            <!-- Content Starts -->
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card mb-0">
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <ng2-smart-table [settings]="settings" [source]="stocks"
+                                    (custom)="onCustomAction($event)"></ng2-smart-table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /Content End -->
+
+        </div>
+        <!-- /Page Content -->
+
+    </div>
+
+
+    <!-- Modal -->
+    <div class="modal right fade" id="add_task" tabindex="-1" role="dialog" aria-modal="true">
+        <div class="modal-dialog" role="document">
+            <button type="button" class="close md-close" data-bs-dismiss="modal" aria-label="Close"><span
+                    aria-hidden="true">&times;</span></button>
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h4 class="modal-title text-center">Add Stock</h4>
+                    <button #cb id="cb" type="button" class="close xs-close" data-bs-dismiss="modal">×</button>
+                </div>
+
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <form [formGroup]="stockForm">
+                                <h4>Stock Details</h4>
+                                <div class="form-group row">
+                                    <div class="col-sm-6">
+                                        <label class="col-form-label">Select Product <span
+                                                class="text-danger">*</span></label>
+                                        <ngx-select-dropdown [config]="config" (change)="selectionChanged($event)"
+                                            [multiple]="false" [options]="products"></ngx-select-dropdown>
+
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label class="col-form-label">Select Size <span
+                                                class="text-danger">*</span></label>
+                                        <select formControlName="size" class="form-select">
+                                            <option selected value="">Select Size</option>
+                                            <option selected *ngFor="let item of size" value="{{item.id}}">
+                                                {{item.size_name}}</option>
+
+                                        </select>
+
+                                    </div>
+
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-sm-6">
+                                        <label class="col-form-label">Color <span class="text-danger">*</span></label>
+                                        <input formControlName="color" class="form-control" type="text"
+                                            placeholder="Color">
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label class="col-form-label">Color Code <span
+                                                class="text-danger">*</span></label>
+                                        <input formControlName="colorCode" class="form-control" type="color"
+                                            placeholder="Color Code">
+                                    </div>
+
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-sm-12">
+                                        <label class="col-form-label">SKU <span class="text-danger">*</span></label>
+                                        <input formControlName="clientStockId" class="form-control" type="text"
+                                            placeholder="SKU">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-sm-6">
+                                        <label class="col-form-label">Available Quantity <span
+                                                class="text-danger">*</span></label>
+                                        <input formControlName="availableQty" class="form-control" type="text"
+                                            placeholder="Available Quantity">
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label class="col-form-label">Base Price <span
+                                                class="text-danger">*</span></label>
+                                        <input formControlName="basePrice" class="form-control" type="text"
+                                            placeholder="Base Price">
+                                    </div>
+
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-sm-6">
+                                        <label class="col-form-label">GST Rate <span
+                                                class="text-danger">*</span></label>
+                                        <input (blur)="calculateTotal($event)" formControlName="gstRate"
+                                            class="form-control" type="text" placeholder="GST Rate">
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label class="col-form-label">Total Price <span
+                                                class="text-danger">*</span></label>
+                                        <input readonly formControlName="totalPrice" class="form-control" type="text"
+                                            placeholder="Total Price">
+                                    </div>
+
+                                </div>
+
+
+                                <div class="text-center py-3">
+                                    <button type="button"
+                                        class="border-0 btn btn-primary btn-gradient-primary btn-rounded"
+                                        (click)="addStock()">Save</button>&nbsp;&nbsp;
+                                    <button type="button" class="btn btn-secondary btn-rounded"
+                                        (click)="cb.click()">Cancel</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div><!-- modal-content -->
+        </div><!-- modal-dialog -->
+    </div><!-- modal -->
+</div>
+
+
+<button hidden class="add btn btn-gradient-primary font-weight-bold text-white todo-list-add-btn btn-rounded"
+    id="add-image" data-bs-toggle="modal" data-bs-target="#add_image">New
+    Stock</button>
+<div class="modal right fade" id="add_image" tabindex="-1" role="dialog" aria-modal="true">
+    <div class="modal-dialog" role="document">
+        <button type="button" class="close md-close" data-bs-dismiss="modal" aria-label="Close"><span
+                aria-hidden="true">&times;</span></button>
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h4 class="modal-title text-center">Add Image</h4>
+                <button #db id="db" type="button" class="close xs-close" data-bs-dismiss="modal">×</button>
+            </div>
+
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <form>
+                            <h4>Images For - {{selectedStock?.clientStockId}} - {{selectedStock?.color}}</h4>
+                            <input multiple (change)="imagesAdded($event)" accept="images/*" hidden #fu type="file"
+                                id="fu">
+                            <button *ngIf="!imagesArray.length"
+                                class="border-0 btn btn-primary btn-gradient-primary btn-rounded"
+                                (click)="fu.click()">ADD IMAGES</button>
+                            <div class="div ">
+                                <div class="div" *ngFor="let image of imagesArray; let i = index" [draggable]="true"
+                                    (dragstart)="dragStart($event, i)" (dragover)="dragOver($event)"
+                                    (drop)="drop($event, i)">
+                                    <img [src]="image.url" />
+                                </div>
+                            </div>
+                            <div *ngIf="imagesArray.length" class="text-center py-3">
+                                <button type="button"
+                                    class="border-0 btn btn-primary btn-gradient-primary btn-rounded">Save</button>&nbsp;&nbsp;
+                                <button type="button" class="btn btn-secondary btn-rounded"
+                                    (click)="db.click()">Cancel</button>
+                            </div>
+
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

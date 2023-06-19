@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
 import { AllModulesRoutingModule } from './all-modules-routing.module';
 import { AllModulesComponent } from './all-modules.component';
 import { HeaderComponent } from "../header/header.component";
@@ -18,12 +17,14 @@ import { ProductComponent } from './product/product.component';
 import { StockComponent } from './stock/stock.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from '../shared/material.module';
+import { SelectDropDownModule } from 'ngx-select-dropdown';
+import { SizeComponent } from './size/size.component'
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
 };
 @NgModule({
-  declarations: [AllModulesComponent, HeaderComponent, SidebarComponent, CategoryComponent, SubCatComponent, ProductComponent, StockComponent],
+  declarations: [AllModulesComponent, HeaderComponent, SidebarComponent, CategoryComponent, SubCatComponent, ProductComponent, StockComponent, SizeComponent],
   imports: [
     CommonModule,
     AllModulesRoutingModule,
@@ -32,7 +33,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     HttpClientInMemoryWebApiModule.forRoot(AllModulesData),
     FormsModule,
     ReactiveFormsModule,
-    MaterialModule
+    MaterialModule,
+    SelectDropDownModule
   ],
   providers: [
     AllModulesService,

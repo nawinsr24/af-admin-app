@@ -9,7 +9,7 @@
                     <h3 class="page-title m-0">
                         <span class="page-title-icon bg-gradient-primary text-white me-2">
                             <i class="feather-grid"></i> 
-                        </span>Products
+                        </span> Size
                     </h3>
                 </div>
                 <div class="col p-0 text-end">
@@ -33,7 +33,7 @@
                                 <button
                                     class="add btn btn-gradient-primary font-weight-bold text-white todo-list-add-btn btn-rounded"
                                     id="add-task" data-bs-toggle="modal" data-bs-target="#add_task">New
-                                    Products</button>
+                                    Size</button>
                             </li>
                         </ul>
                     </div>
@@ -48,7 +48,7 @@
                     <div class="card mb-0">
                         <div class="card-body">
                             <div class="table-responsive">
-                                <ng2-smart-table [settings]="settings" [source]="products"
+                                <ng2-smart-table [settings]="settings" [source]="data"
                                 (custom)="onCustomAction($event)"></ng2-smart-table>
                             </div>
                         </div>
@@ -71,66 +71,31 @@
             <div class="modal-content">
 
                 <div class="modal-header">
-                    <h4 class="modal-title text-center">Add Product</h4>
+                    <h4 class="modal-title text-center">Add Size</h4>
                     <button #cb id="cb" type="button" class="close xs-close" data-bs-dismiss="modal">×</button>
                 </div>
 
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-md-12">
-                            <form [formGroup]="productForm">
-                                <h4>Product Details</h4>
-                                <div class="form-group row">
-                                    <div class="col-sm-6">
-                                        <label class="col-form-label">Choose Category <span
-                                            class="text-danger">*</span></label>
-                                        <select (change)="categoryChane($event)" formControlName="catId" class="form-select">
-                                            <option selected value="">Select Category</option>
-                                            <option selected *ngFor="let item of category" value="{{item.id}}">{{item.category_name}}</option>
-
-                                        </select>
-                                     
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <label class="col-form-label">Choose Sub Category <span
-                                            class="text-danger">*</span></label>
-                                        <select formControlName="subCatId" class="form-select">
-                                            <option selected value="">Select Category</option>
-                                            <option selected *ngFor="let item of subcategory" value="{{item.id}}">{{item.sub_category_name}}</option>
-
-                                        </select>
-                                     
-                                    </div>
-
-                                </div>
+                            <form [formGroup]="sizeForm">
+                                <h4>Category Details</h4>
                                 <div class="form-group row">
                                     <div class="col-sm-12">
-                                        <label class="col-form-label">Product Name <span
+                                        <label class="col-form-label">Size <span
                                                 class="text-danger">*</span></label>
-                                        <input formControlName="prdName" class="form-control" type="text" 
-                                            placeholder="Product Name"  >
+                                        <input formControlName="sizeName" class="form-control" type="text" 
+                                            placeholder="Size">
                                     </div>
 
                                 </div>
 
-                                <div class="form-group row">
-                                    <div class="col-sm-12">
-                                        <label class="col-form-label">Tag Line </label>
-                                        <textarea formControlName="tagLine" class="form-control" rows="3" id="description"
-                                            placeholder="Tag Line"></textarea>
-                                    </div>
-                                </div>
 
-                                <div class="form-group row">
-                                    <div class="col-sm-12">
-                                        <label class="col-form-label">Description </label>
-                                        <textarea formControlName="description" class="form-control" rows="3" id="description"
-                                            placeholder="Description"></textarea>
-                                    </div>
-                                </div>
+
+                     
                                 <div class="text-center py-3">
                                     <button type="button"
-                                        class="border-0 btn btn-primary btn-gradient-primary btn-rounded" (click)="addProduct()">Save</button>&nbsp;&nbsp;
+                                        class="border-0 btn btn-primary btn-gradient-primary btn-rounded" (click)="addSize()">Save</button>&nbsp;&nbsp;
                                     <button type="button" class="btn btn-secondary btn-rounded" (click)="cb.click()" >Cancel</button>
                                 </div>
                             </form>

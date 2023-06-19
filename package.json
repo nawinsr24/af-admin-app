@@ -58,6 +58,7 @@
     "ng2-smart-table": "^1.7.2",
     "ngx-perfect-scrollbar": "^10.1.0",
     "ngx-toastr": "^14.3.0",
+    "ngx-select-dropdown": "^2.1.0",
     "npm-force-resolutions": "0.0.10",
     "popper.js": "^1.16.1",
     "raphael": "^2.3.0",

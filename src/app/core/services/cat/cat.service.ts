@@ -32,4 +32,10 @@ export class CatService {
   public getAllSubCategoryUnderCategory(id:any) {
     return this.http.get(APIENDPOINTS.subCategory+`?categoryId=${id}`)
   }
+  public addSize(data:any) {
+    return this.http.post(APIENDPOINTS.size,data)
+  }
+  public getAllSize() {
+    return this.http.get(APIENDPOINTS.size)
+  }
 }
