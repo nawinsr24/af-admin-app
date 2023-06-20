@@ -197,7 +197,6 @@ export class StockComponent implements OnInit {
     }
   }
   async imagesAdded(event: any) {
-    this.imagesArray = []
     console.log(this.imagesArray);
     [...event.target.files].forEach(async ele => {
       this.imagesArray.push({
@@ -241,5 +240,8 @@ export class StockComponent implements OnInit {
 
     }
   }
-
+  uploadCancel(ele:any) {
+    ele.click()
+    this.imagesArray = []
+  }
 }

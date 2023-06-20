@@ -192,23 +192,25 @@
                     <div class="col-md-12">
                         <form>
                             <h4>Images For - {{selectedStock?.clientStockId}} - {{selectedStock?.color}}</h4>
-                            <input multiple (change)="imagesAdded($event)" accept="images/*" hidden #fu type="file"
+                            <input multiple (change)="imagesAdded($event)" accept="image/*" hidden #fu type="file"
                                 id="fu">
-                            <button *ngIf="!imagesArray.length"
-                                class="border-0 btn btn-primary btn-gradient-primary btn-rounded"
-                                (click)="fu.click()">ADD IMAGES</button>
+                          
                             <div class="div ">
                                 <div class="div" *ngFor="let image of imagesArray; let i = index" [draggable]="true"
                                     (dragstart)="dragStart($event, i)" (dragover)="dragOver($event)"
                                     (drop)="drop($event, i)">
                                     <img [src]="image.url" />
+                                  
+                                </div>
+                                <div (click)="fu.click()" class="add_img" >
+                                    <i class="addic feather-plus-circle"></i>
                                 </div>
                             </div>
                             <div *ngIf="imagesArray.length" class="text-center py-3">
                                 <button type="button"
                                     class="border-0 btn btn-primary btn-gradient-primary btn-rounded">Save</button>&nbsp;&nbsp;
                                 <button type="button" class="btn btn-secondary btn-rounded"
-                                    (click)="db.click()">Cancel</button>
+                                    (click)="uploadCancel(db)">Cancel</button>
                             </div>
 
 

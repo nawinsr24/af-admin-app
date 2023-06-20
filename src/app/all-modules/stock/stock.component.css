@@ -1,17 +1,35 @@
 .div {
   width: 100%;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  grid-auto-rows: 200px;
+  grid-gap: 10px;
 }
 
 img {
-  width: 250px;
-  height: auto;
+  width: 150px;
+  height: 150px;
   margin: 5px;
   cursor: move;
-  border: solid 1px #9a55ff;
+  border: solid 2px #9a55ff;
 }
 
 .dragging {
   opacity: 0.5;
+}
+
+.add_img {
+  width: 150px;
+  height: 150px;
+  margin: 5px;
+  cursor: move;
+  border: solid 2px #9a55ff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+.addic{
+  font-size: 30px;
+
 }
