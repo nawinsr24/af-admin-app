@@ -7,5 +7,9 @@ export enum APIENDPOINTS{
 
     size="/admin/size",
 
-    stock="/admin/stock"
+    stock="/admin/stock",
+    stockImage="/admin/stockImg?stock_id=",
+
+    s3Uplaod="/s3/upload",
+    s3Delete="/s3/delete?key="
 }

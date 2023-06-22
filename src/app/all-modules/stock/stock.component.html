@@ -194,23 +194,26 @@
                             <h4>Images For - {{selectedStock?.clientStockId}} - {{selectedStock?.color}}</h4>
                             <input multiple (change)="imagesAdded($event)" accept="image/*" hidden #fu type="file"
                                 id="fu">
-                          
+
                             <div class="div ">
-                                <div class="div" *ngFor="let image of imagesArray; let i = index" [draggable]="true"
+                                <div class="div divc" *ngFor="let image of imagesArray; let i = index" [draggable]="true"
                                     (dragstart)="dragStart($event, i)" (dragover)="dragOver($event)"
                                     (drop)="drop($event, i)">
-                                    <img [src]="image.url" />
+                                    <div class="igc">
+                                        <img [src]="image.url" />
+                                        <i (click)="removeImage(i)" class="feather-trash"></i>
+                                    </div>
                                   
                                 </div>
-                                <div (click)="fu.click()" class="add_img" >
+                                <div (click)="fu.click()" class="add_img">
                                     <i class="addic feather-plus-circle"></i>
                                 </div>
                             </div>
-                            <div *ngIf="imagesArray.length" class="text-center py-3">
-                                <button type="button"
-                                    class="border-0 btn btn-primary btn-gradient-primary btn-rounded">Save</button>&nbsp;&nbsp;
+                            <div  class="text-center py-3">
+                                <button type="button" class="border-0 btn btn-primary btn-gradient-primary btn-rounded"
+                                    (click)="uploadImages()">Save</button>&nbsp;&nbsp;
                                 <button type="button" class="btn btn-secondary btn-rounded"
-                                    (click)="uploadCancel(db)">Cancel</button>
+                                    (click)="uploadCancel()">Cancel</button>
                             </div>
 
 

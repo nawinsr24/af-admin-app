@@ -24,4 +24,9 @@ export class ProductService {
     return this.http.get(APIENDPOINTS.stock)
   }
 
+  public addStockImg(data: any,id:any) {
+    return this.http.post(APIENDPOINTS.stockImage+id,data)
+
+  }
+
 }

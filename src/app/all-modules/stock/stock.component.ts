@@ -1,8 +1,10 @@
 import { Component, OnInit, Renderer2 } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { CatService } from 'src/app/core/services/cat/cat.service';
+import { FileService } from 'src/app/core/services/file/file.service';
 import { ProductService } from 'src/app/core/services/products/product.service';
 import { ToasterService } from 'src/app/core/services/toastr/toaster.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-stock',
@@ -34,9 +36,9 @@ export class StockComponent implements OnInit {
   //     "message": "Success"
   // }
   config = {
-    displayFn: (item: any) => { return item.name; }, //a replacement ofr displayKey to support flexible text displaying for each item
-    displayKey: "name", //if objects array passed which key to be displayed defaults to description
-    search: true,//true/false for the search functionlity defaults to false,
+    displayFn: (item: any) => { return item.name; },
+    displayKey: "name",
+    search: true,
     height: 'auto', //height of the list so that if there are more no of items it can show a scroll defaults to auto. With auto height scroll will never appear
     placeholder: 'Select', // text to be displayed when no item is selected defaults to Select,
     customComparator: () => { }, // a custom function using which user wants to sort the items. default is undefined and Array.sort() will be used in that case,
@@ -134,12 +136,17 @@ export class StockComponent implements OnInit {
   imagesArray = [
 
   ];
+  deletedImages = [
+
+  ]
+
   draggingIndex: number | null = null;
   constructor(
     private renderer: Renderer2,
     private toaster: ToasterService,
     private catAPI: CatService,
-    private productAPI: ProductService
+    private productAPI: ProductService,
+    private fileAPI: FileService
   ) { }
 
   ngOnInit(): void {
@@ -190,10 +197,19 @@ export class StockComponent implements OnInit {
 
   onCustomAction(event: any) {
     console.log(event);
+    console.log(event.data.images);
+
 
     if (event.action == 'image') {
+      this.imagesArray = []
       document.getElementById('add-image').click()
       this.selectedStock = event.data
+      if (event.data.images.length > 0) {
+        event.data.images.forEach(element => {
+          this.imagesArray.push({ url: environment.imageUrl + element, key: element })
+
+        });
+      }
     }
   }
   async imagesAdded(event: any) {
@@ -240,8 +256,48 @@ export class StockComponent implements OnInit {
 
     }
   }
-  uploadCancel(ele:any) {
-    ele.click()
+  uploadCancel() {
+    document.getElementById('db').click()
     this.imagesArray = []
+  }
+
+  async uploadImages() {
+    let Obj = { imagesArray: [] }
+    for (let i = 0; i < this.imagesArray.length; i++) {
+      const element = this.imagesArray[i];
+      let key
+      if (element.file)
+        key = await this.singleFileUpload(element.file)
+      else
+        key = element.key
+
+      Obj.imagesArray.push({ stock_id: this.selectedStock.id, imgUrl: key })
+    }
+    this.productAPI.addStockImg(Obj, this.selectedStock.id).subscribe(res => {
+      console.log(res);
+      this.toaster.success("Uploaded !")
+      this.uploadCancel()
+      this.selectedStock = null
+      for (let i = 0; i < this.deletedImages.length; i++) {
+        const element = this.deletedImages[i];
+        if (element.key)
+          this.fileAPI.deleteImage(element.key).subscribe(res => {
+          })
+      }
+      this.ngOnInit()
+    })
+  }
+  removeImage(i: any) {
+    this.deletedImages.push(this.imagesArray[0])
+    this.imagesArray.splice(i, 1);
+  }
+  singleFileUpload(file: any) {
+    return new Promise((resolve, rejects) => {
+      this.fileAPI.uploadImage(file).subscribe((res: any) => {
+
+        console.log(res.data.key);
+        resolve(res.data.key)
+      })
+    })
   }
 }

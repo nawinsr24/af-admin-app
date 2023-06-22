@@ -3,14 +3,17 @@ import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpResponse } fr
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class JwtInterceptor implements HttpInterceptor {
+  constructor(private router: Router) { }
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const token = localStorage.getItem('token');
     const baseUrl = environment.apiURL;
 
     let modifiedRequest = request;
+    // console.log(request.url);
 
     if (token) {
       modifiedRequest = request.clone({
@@ -18,6 +21,9 @@ export class JwtInterceptor implements HttpInterceptor {
           Authorization: `Bearer ${token}`
         }
       });
+    } else {
+      if (request.url !== '/admin/login')
+        this.router.navigateByUrl('/login')
     }
 
     modifiedRequest = modifiedRequest.clone({

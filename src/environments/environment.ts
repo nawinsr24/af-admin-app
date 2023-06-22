@@ -4,7 +4,10 @@
 
 export const environment = {
   production: true,
-  apiURL: ' http://3.109.4.44:9005'
+  apiURL: 'http://dev.api.amirthafashion.com/',
+  // apiURL: 'http://localhost:9005',
+  imageUrl: "https://amirthafashions.s3.ap-south-1.amazonaws.com/"
+
 };
 
 /*
