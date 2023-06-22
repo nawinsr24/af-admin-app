@@ -4,7 +4,7 @@
 
 export const environment = {
   production: true,
-  apiURL: 'http://dev.api.amirthafashion.com/',
+  apiURL: 'http://dev.api.amirthafashion.com',
   // apiURL: 'http://localhost:9005',
   imageUrl: "https://amirthafashions.s3.ap-south-1.amazonaws.com/"
 
