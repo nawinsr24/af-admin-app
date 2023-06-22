@@ -5,7 +5,7 @@ import { Error500Component } from "./error500/error500.component";
 import { LoginComponent } from "./login/login.component";
 const routes: Routes = [
   {
-    path: "",
+    path: "admin",
     loadChildren: () =>
       import(`./all-modules/all-modules.module`).then(
         (m) => m.AllModulesModule
@@ -14,6 +14,8 @@ const routes: Routes = [
   { path: "error-404", component: Error404Component },
   { path: "error-500", component: Error500Component },
   { path: "login", component: LoginComponent },
+  { path: '**', redirectTo: 'login' }, // Redirect any invalid path to 'login'
+
 ];
 
 @NgModule({
