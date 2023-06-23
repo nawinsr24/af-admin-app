@@ -25,7 +25,7 @@ export class LoginComponent implements OnInit {
         localStorage.setItem('token', res.data.token)
         localStorage.setItem('type', res.data.type)
         this.toatser.success("Logged In")
-        this.router.navigateByUrl('/cat')
+        this.router.navigateByUrl('/admin/cat')
       }
     }, err => {
       console.log(err);
