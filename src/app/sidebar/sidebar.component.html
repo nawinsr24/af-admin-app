@@ -9,7 +9,9 @@
             <div id="sidebar-menu" class="sidebar-menu">
                 <ul>
 
-
+                    <li [ngClass]="[activeRoute === '/admin/banners' ? 'active' : '']">
+                        <a routerLink="/admin/banners"><i class="feather-layout"></i> <span>Banners</span></a>
+                    </li>
 
                     <li [ngClass]="[activeRoute === '/admin/cat' ? 'active' : '']">
                         <a routerLink="/admin/cat"><i class="feather-grid"></i> <span>Category</span></a>

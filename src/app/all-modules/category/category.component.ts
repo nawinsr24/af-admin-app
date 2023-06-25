@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { CatService } from 'src/app/core/services/cat/cat.service';
 import { ToasterService } from 'src/app/core/services/toastr/toaster.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-category',
@@ -43,14 +44,14 @@ export class CategoryComponent implements OnInit {
       delete: false,
       edit: false,
       custom: [
-  
+
         {
           class: 'center',
           name: 'edit', title: '<span class="action-icons view-icon"><i class="fa fa-edit"></i></span>'
         },
         {
           class: 'center',
-          name: 'edit', title: '<span class="action-icons view-icon"><i class="fa fa-trash"></i></span>'
+          name: 'delete', title: '<span class="action-icons view-icon"><i class="fa fa-trash"></i></span>'
         }
       ]
     }
@@ -79,6 +80,24 @@ export class CategoryComponent implements OnInit {
     })
   }
   onCustomAction(event: any) {
+    console.log(event);
+
+    if (event.action === 'delete') {
+      this.catAPI.deleteItem().then((result) => {
+        if (result.isConfirmed) {
+
+          // this.catAPI.deleteCategory()
+          Swal.fire(
+            'Deleted!',
+            'Your item has been deleted.',
+            'success'
+          );
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+
+        }
+      });
+
+    }
 
   }
 }

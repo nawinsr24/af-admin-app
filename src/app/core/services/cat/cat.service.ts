@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { APIENDPOINTS } from '../../config/apiEndpoint';
+import Swal from 'sweetalert2';
 
 @Injectable({
   providedIn: 'root'
@@ -38,4 +39,22 @@ export class CatService {
   public getAllSize() {
     return this.http.get(APIENDPOINTS.size)
   }
+
+  public addBanners(data:any){
+    return this.http.post(APIENDPOINTS.banner,data)
+  }
+  public getBanners(){
+    return this.http.get(APIENDPOINTS.banner)
+  }
+
+  deleteItem() {
+   return Swal.fire({
+      title: 'Are you sure?',
+      text: 'You will not be able to recover this item!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, delete it!',
+      cancelButtonText: 'No, cancel',
+    })}
+
 }

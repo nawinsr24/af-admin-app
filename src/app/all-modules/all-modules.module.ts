@@ -18,13 +18,14 @@ import { StockComponent } from './stock/stock.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from '../shared/material.module';
 import { SelectDropDownModule } from 'ngx-select-dropdown';
-import { SizeComponent } from './size/size.component'
+import { SizeComponent } from './size/size.component';
+import { BannersComponent } from './banners/banners.component'
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
 };
 @NgModule({
-  declarations: [AllModulesComponent, HeaderComponent, SidebarComponent, CategoryComponent, SubCatComponent, ProductComponent, StockComponent, SizeComponent],
+  declarations: [AllModulesComponent, HeaderComponent, SidebarComponent, CategoryComponent, SubCatComponent, ProductComponent, StockComponent, SizeComponent, BannersComponent],
   imports: [
     CommonModule,
     AllModulesRoutingModule,

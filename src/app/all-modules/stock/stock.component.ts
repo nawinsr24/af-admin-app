@@ -288,7 +288,7 @@ export class StockComponent implements OnInit {
     })
   }
   removeImage(i: any) {
-    this.deletedImages.push(this.imagesArray[0])
+    this.deletedImages.push(this.imagesArray[i])
     this.imagesArray.splice(i, 1);
   }
   singleFileUpload(file: any) {

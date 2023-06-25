@@ -1,0 +1,67 @@
+<div>
+    <div class="page-wrapper">
+
+        <!-- Page Content -->
+        <div class="content container-fluid">
+
+            <div class="crms-title row bg-white">
+                <div class="col  p-0">
+                    <h3 class="page-title m-0">
+                        <span class="page-title-icon bg-gradient-primary text-white me-2">
+                            <i class="feather-grid"></i>
+                        </span>Banners
+                    </h3>
+                </div>
+                <div class="col p-0 text-end">
+                    <!-- <ul class="breadcrumb bg-white float-end m-0 ps-0 pe-0">
+                                 <li class="breadcrumb-item"><a routerLink ="/dashboard">Dashboard</a></li>
+                                 <li class="breadcrumb-item active">Category</li>
+                             </ul> -->
+                </div>
+            </div>
+
+            <!-- Page Header -->
+            <div class="page-header pt-3 mb-0 ">
+                <div class="row">
+                    <div class="col">
+
+                    </div>
+                    <div class="col text-end">
+                        <input (change)="imagesAdded($event)" hidden [multiple]="false" #iff type="file">
+                        <ul class="list-inline-item ps-0">
+
+                            <li class="list-inline-item">
+                                <button (click)="iff.click()"
+                                    class="add btn btn-gradient-primary font-weight-bold text-white todo-list-add-btn btn-rounded"
+                                     data-bs-toggle="modal" data-bs-target="#add_task">New
+                                    Banner</button>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="div">
+                <div class="div divc" *ngFor="let image of imagesArray; let i = index" [draggable]="true"
+                    (dragstart)="dragStart($event, i)" (dragover)="dragOver($event)"
+                    (drop)="drop($event, i)">
+                    <div class="igc">
+                        <img [src]="image.url" />
+                        <i (click)="removeImage(i)" class="feather-trash"></i>
+                    </div>
+                  
+                </div>
+                <!-- <div (click)="iff.click()" class="add_img">
+                    <i class="addic feather-plus-circle"></i>
+                </div> -->
+            </div>
+            <div *ngIf="!arraysAreEqual(imagesArray,copyArray)" class="text-center py-3">
+                <button type="button" class="border-0 btn btn-primary btn-gradient-primary btn-rounded"
+                    (click)="uploadImages()">Save</button>&nbsp;&nbsp;
+                <button type="button" class="btn btn-secondary btn-rounded"
+                    (click)="uploadCancel()">Cancel</button>
+            </div>
+        </div>
+
+    </div>
+</div>
