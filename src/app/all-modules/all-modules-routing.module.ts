@@ -7,6 +7,8 @@ import { ProductComponent } from './product/product.component';
 import { StockComponent } from './stock/stock.component';
 import { SizeComponent } from './size/size.component';
 import { BannersComponent } from './banners/banners.component';
+import { DiscountComponent } from './discount/discount.component';
+import { StockLablesComponent } from './stock-lables/stock-lables.component';
 const routes: Routes = [
   {
     path: '',
@@ -23,6 +25,8 @@ const routes: Routes = [
       { path: 'stocks', component: StockComponent },
       { path: 'size', component: SizeComponent },
       { path: 'banners', component: BannersComponent },
+      { path: 'discount', component: DiscountComponent },
+      { path: 'lables', component: StockLablesComponent },
 
 
 

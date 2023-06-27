@@ -19,6 +19,9 @@ export class BannersComponent implements OnInit {
   ngOnInit(): void {
     this.imagesArray = []
 
+    this.copyArray = [...this.imagesArray]
+
+
     this.bannerAPI.getBanners().subscribe((res: any) => {
       console.log(res);
       if (res.data.length > 0) {
@@ -84,7 +87,10 @@ export class BannersComponent implements OnInit {
     this.imagesArray.splice(i, 1);
   }
 
-  uploadCancel() { }
+  uploadCancel() { 
+    this.imagesArray=[...this.copyArray]
+    this.ngOnInit()
+  }
   arraysAreEqual(arr1, arr2) {
 
     return JSON.stringify(arr1) === JSON.stringify(arr2);

@@ -13,5 +13,11 @@ export enum APIENDPOINTS{
     s3Uplaod="/s3/upload",
     s3Delete="/s3/delete?key=",
 
-    banner="/admin/banners"
+    banner="/admin/banners",
+
+    stockType="/admin/stocktype",
+
+    discount="/admin/discount"
+
+
 }

@@ -83,19 +83,19 @@ export class CategoryComponent implements OnInit {
     console.log(event);
 
     if (event.action === 'delete') {
-      this.catAPI.deleteItem().then((result) => {
-        if (result.isConfirmed) {
+      // this.catAPI.deleteItem().then((result) => {
+      //   if (result.isConfirmed) {
 
-          // this.catAPI.deleteCategory()
-          Swal.fire(
-            'Deleted!',
-            'Your item has been deleted.',
-            'success'
-          );
-        } else if (result.dismiss === Swal.DismissReason.cancel) {
+      //     // this.catAPI.deleteCategory()
+      //     Swal.fire(
+      //       'Deleted!',
+      //       'Your item has been deleted.',
+      //       'success'
+      //     );
+      //   } else if (result.dismiss === Swal.DismissReason.cancel) {
 
-        }
-      });
+      //   }
+      // });
 
     }
 

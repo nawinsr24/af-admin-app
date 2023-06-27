@@ -9,37 +9,40 @@
             <div id="sidebar-menu" class="sidebar-menu">
                 <ul>
 
-                    <li [ngClass]="[activeRoute === '/admin/banners' ? 'active' : '']">
+                    <li routerLinkActive="active" >
                         <a routerLink="/admin/banners"><i class="feather-layout"></i> <span>Banners</span></a>
                     </li>
 
-                    <li [ngClass]="[activeRoute === '/admin/cat' ? 'active' : '']">
+                    <li routerLinkActive="active" >
                         <a routerLink="/admin/cat"><i class="feather-grid"></i> <span>Category</span></a>
                     </li>
-                    <li [ngClass]="[activeRoute === '/admin/sub-cat' ? 'active' : '']">
+                    <li routerLinkActive="active" >
                         <a routerLink="/admin/sub-cat"><i class="feather-radio"></i> <span>Sub Category</span></a>
                     </li>
-                    <li [ngClass]="[activeRoute === '/admin/size' ? 'active' : '']">
+                    <li routerLinkActive="active" >
                         <a routerLink="/admin/size"><i class="feather-sliders"></i> <span>Size</span></a>
                     </li>
-                    <li [ngClass]="[activeRoute === '/admin/products' ? 'active' : '']">
+                    <li routerLinkActive="active" >
                         <a routerLink="/admin/products"><i class="feather-briefcase"></i> <span>Products</span></a>
                     </li>
-                    <li [ngClass]="[activeRoute === '/admin/stocks' ? 'active' : '']">
+                    <li routerLinkActive="active" >
                         <a routerLink="/admin/stocks"><i class="feather-bar-chart-2"></i> <span>Stocks</span></a>
                     </li>
-                    <li [ngClass]="[activeRoute === '/admin/' ? 'active' : '']">
-                        <a routerLink="/admin/"><i class="feather-percent"></i> <span>Discounts</span></a>
+                    <li routerLinkActive="active" >
+                        <a routerLink="/admin/discount"><i class="feather-percent"></i> <span>Discounts</span></a>
                     </li>
-                    <li [ngClass]="[activeRoute === '/admin/' ? 'active' : '']">
-                        <a routerLink="/admin/"><i class="feather-package"></i> <span>Orders</span></a>
+                    <li routerLinkActive="active">
+                        <a routerLink="/admin/lables"><i class="feather-tag"></i> <span>Lables</span></a>
                     </li>
-                    <li [ngClass]="[activeRoute === '/admin/' ? 'active' : '']">
-                        <a routerLink="/admin/"><i class="feather-users"></i> <span>Customers</span></a>
+                    <!-- <li routerLinkActive="active" >
+                        <a routerLink=""><i class="feather-package"></i> <span>Orders</span></a>
                     </li>
-                    <li [ngClass]="[activeRoute === '/admin/' ? 'active' : '']">
-                        <a routerLink="/admin/"><i class="feather-activity"></i> <span>Revenue</span></a>
+                    <li routerLinkActive="active" >
+                        <a routerLink=""><i class="feather-users"></i> <span>Customers</span></a>
                     </li>
+                    <li routerLinkActive="active" >
+                        <a routerLink=""><i class="feather-activity"></i> <span>Revenue</span></a>
+                    </li> -->
 
                 </ul>
             </div>

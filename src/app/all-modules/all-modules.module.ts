@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { AllModulesRoutingModule } from './all-modules-routing.module';
 import { AllModulesComponent } from './all-modules.component';
 import { HeaderComponent } from "../header/header.component";
@@ -19,13 +19,15 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from '../shared/material.module';
 import { SelectDropDownModule } from 'ngx-select-dropdown';
 import { SizeComponent } from './size/size.component';
-import { BannersComponent } from './banners/banners.component'
+import { BannersComponent } from './banners/banners.component';
+import { DiscountComponent } from './discount/discount.component';
+import { StockLablesComponent } from './stock-lables/stock-lables.component'
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
 };
 @NgModule({
-  declarations: [AllModulesComponent, HeaderComponent, SidebarComponent, CategoryComponent, SubCatComponent, ProductComponent, StockComponent, SizeComponent, BannersComponent],
+  declarations: [AllModulesComponent, HeaderComponent, SidebarComponent, CategoryComponent, SubCatComponent, ProductComponent, StockComponent, SizeComponent, BannersComponent, DiscountComponent, StockLablesComponent],
   imports: [
     CommonModule,
     AllModulesRoutingModule,
@@ -39,6 +41,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   ],
   providers: [
     AllModulesService,
+    DatePipe,
     {
       provide: PERFECT_SCROLLBAR_CONFIG,
       useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG,

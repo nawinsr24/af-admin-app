@@ -1,0 +1,11 @@
+table{
+    width: 100%;
+}
+.name{
+    font-weight: bold;
+    font-size: 15px;
+}
+.price{
+    font-size: 15px;
+
+}

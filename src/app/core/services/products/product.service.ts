@@ -24,9 +24,29 @@ export class ProductService {
     return this.http.get(APIENDPOINTS.stock)
   }
 
-  public addStockImg(data: any,id:any) {
-    return this.http.post(APIENDPOINTS.stockImage+id,data)
+  public addStockImg(data: any, id: any) {
+    return this.http.post(APIENDPOINTS.stockImage + id, data)
 
+  }
+
+  public addLabel(data: any) {
+    return this.http.post(APIENDPOINTS.stockType, data)
+  }
+  public getLabels() {
+    return this.http.get(APIENDPOINTS.stockType)
+  }
+  public deleteLabel(id: any) {
+    return this.http.delete(APIENDPOINTS.stockType + `/${id}`)
+  }
+  public addDiscount(data: any) {
+    return this.http.post(APIENDPOINTS.discount, data)
+  }
+
+  public getDiscount() {
+    return this.http.get(APIENDPOINTS.discount)
+  }
+  public deleteDiscount(id:any) {
+    return this.http.delete(APIENDPOINTS.discount + `/${id}`)
   }
 
 }

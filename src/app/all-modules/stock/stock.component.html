@@ -196,20 +196,20 @@
                                 id="fu">
 
                             <div class="div ">
-                                <div class="div divc" *ngFor="let image of imagesArray; let i = index" [draggable]="true"
-                                    (dragstart)="dragStart($event, i)" (dragover)="dragOver($event)"
+                                <div class="div divc" *ngFor="let image of imagesArray; let i = index"
+                                    [draggable]="true" (dragstart)="dragStart($event, i)" (dragover)="dragOver($event)"
                                     (drop)="drop($event, i)">
                                     <div class="igc">
                                         <img [src]="image.url" />
                                         <i (click)="removeImage(i)" class="feather-trash"></i>
                                     </div>
-                                  
+
                                 </div>
                                 <div (click)="fu.click()" class="add_img">
                                     <i class="addic feather-plus-circle"></i>
                                 </div>
                             </div>
-                            <div  class="text-center py-3">
+                            <div class="text-center py-3">
                                 <button type="button" class="border-0 btn btn-primary btn-gradient-primary btn-rounded"
                                     (click)="uploadImages()">Save</button>&nbsp;&nbsp;
                                 <button type="button" class="btn btn-secondary btn-rounded"

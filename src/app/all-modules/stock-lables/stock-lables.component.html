@@ -1,0 +1,123 @@
+<div>
+    <div class="page-wrapper">
+
+        <!-- Page Content -->
+        <div class="content container-fluid">
+
+            <div class="crms-title row bg-white">
+                <div class="col  p-0">
+                    <h3 class="page-title m-0">
+                        <span class="page-title-icon bg-gradient-primary text-white me-2">
+                            <i class="feather-grid"></i>
+                        </span> Stock Label
+                    </h3>
+                </div>
+                <div class="col p-0 text-end">
+                    <!-- <ul class="breadcrumb bg-white float-end m-0 ps-0 pe-0">
+                                 <li class="breadcrumb-item"><a routerLink ="/dashboard">Dashboard</a></li>
+                                 <li class="breadcrumb-item active">Category</li>
+                             </ul> -->
+                </div>
+            </div>
+
+            <!-- Page Header -->
+            <div class="page-header pt-3 mb-0 ">
+                <div class="row">
+                    <div class="col">
+
+                    </div>
+                    <div class="col text-end">
+                        <ul class="list-inline-item ps-0">
+
+                            <li class="list-inline-item">
+                                <button
+                                    class="add btn btn-gradient-primary font-weight-bold text-white todo-list-add-btn btn-rounded"
+                                    id="add-task" data-bs-toggle="modal" data-bs-target="#add_task">New
+                                    Label</button>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- /Page Header -->
+
+
+            <!-- Content Starts -->
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card mb-0">
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <ng2-smart-table [settings]="settings" [source]="data"
+                                    (custom)="onCustomAction($event)"></ng2-smart-table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /Content End -->
+
+        </div>
+        <!-- /Page Content -->
+
+    </div>
+
+
+    <!-- Modal -->
+    <div class="modal right fade" id="add_task" tabindex="-1" role="dialog" aria-modal="true">
+        <div class="modal-dialog" role="document">
+            <button type="button" class="close md-close" data-bs-dismiss="modal" aria-label="Close"><span
+                    aria-hidden="true">&times;</span></button>
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h4 class="modal-title text-center">Add Lable</h4>
+                    <button #cb id="cb" type="button" class="close xs-close" data-bs-dismiss="modal">×</button>
+                </div>
+
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <form [formGroup]="labelForm">
+                                <h4>Label Details</h4>
+                                <div class="form-group row" *ngIf="stocks">
+                                    <div class="col-sm-6">
+                                        <label class="col-form-label">Select Product <span
+                                                class="text-danger">*</span></label>
+                                        <ngx-select-dropdown [config]="config" (change)="selectionChanged($event)"
+                                            [multiple]="false" [options]="stocks"></ngx-select-dropdown>
+
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label class="col-form-label">Label <span class="text-danger">*</span></label>
+                                        <select formControlName="type" name="" id="" class="form-control">
+                                            <option value="deal_of_the_day">Deal of the Day</option>
+                                            <option value="most_popular">Most Popular</option>
+                                            <option value="best_selling">Best Selling</option>
+                                            <option value="new_arrival">New Arrival</option>
+                                        </select>
+
+                                    </div>
+
+                                </div>
+
+
+
+
+                                <div class="text-center py-3">
+                                    <button type="button"
+                                        class="border-0 btn btn-primary btn-gradient-primary btn-rounded"
+                                        (click)="addLabel()">Save</button>&nbsp;&nbsp;
+                                    <button type="button" class="btn btn-secondary btn-rounded"
+                                        (click)="cb.click()">Cancel</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div><!-- modal-content -->
+        </div><!-- modal-dialog -->
+    </div><!-- modal -->
+</div>
