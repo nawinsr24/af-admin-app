@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { DomSanitizer } from '@angular/platform-browser';
 import { CatService } from 'src/app/core/services/cat/cat.service';
+import { FileService } from 'src/app/core/services/file/file.service';
 import { ToasterService } from 'src/app/core/services/toastr/toaster.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-sub-cat',
@@ -10,9 +13,10 @@ import { ToasterService } from 'src/app/core/services/toastr/toaster.service';
 })
 export class SubCatComponent implements OnInit {
   subCategoryForm = new FormGroup({
-    categoryId:new FormControl('',Validators.required),
+    categoryId: new FormControl('', Validators.required),
     subCategoryName: new FormControl('', Validators.required),
-    description: new FormControl('', Validators.required)
+    description: new FormControl('', Validators.required),
+    image: new FormControl('', Validators.required)
   })
   settings = {
     columns: {
@@ -36,6 +40,14 @@ export class SubCatComponent implements OnInit {
       description: {
         title: 'Description',
         filter: true
+      },
+      image: {
+        title: 'Image',
+        type: 'html',
+
+        valuePrepareFunction: (value: any, row: any, cell: any) => {
+          return this.dom.bypassSecurityTrustHtml(`<img  src="${environment.imageUrl + value}" alt="Image" style="height: 100px;">`)
+        },
       }
     },
     pager:
@@ -48,7 +60,7 @@ export class SubCatComponent implements OnInit {
       delete: false,
       edit: false,
       custom: [
-  
+
         {
           class: 'center',
           name: 'edit', title: '<span class="action-icons view-icon"><i class="fa fa-edit"></i></span>'
@@ -61,13 +73,18 @@ export class SubCatComponent implements OnInit {
     }
   };
   category
-  data:any
+  data: any
+  file: any
   constructor(
     private toaster: ToasterService,
     private catAPI: CatService,
+    private fileAPI: FileService,
+    private dom:DomSanitizer
   ) { }
 
   ngOnInit(): void {
+
+    this.file = undefined
     this.catAPI.getAllCategory().subscribe((res: any) => {
       console.log(res);
       this.category = res.data
@@ -77,8 +94,15 @@ export class SubCatComponent implements OnInit {
       this.data = res.data
     })
   }
-  addSubCategory() {
+  async addSubCategory() {
+
+    if (this.file) {
+      this.subCategoryForm.patchValue({
+        image: await this.singleFileUpload(this.file)
+      })
+    }
     if (this.subCategoryForm.invalid) return this.toaster.error('Enter Valid Details !')
+
     this.catAPI.addSubCategory(this.subCategoryForm.value).subscribe(res => {
       this.toaster.success('Sub Category Added !')
       this.subCategoryForm.reset()
@@ -88,7 +112,20 @@ export class SubCatComponent implements OnInit {
       if (err) this.toaster.error('Not Added !')
     })
   }
+  imageUploaded(event: any) {
+    console.log(event.target.files[0]);
+    this.file = event.target.files[0]
 
+  }
+  singleFileUpload(file: any) {
+    return new Promise((resolve, rejects) => {
+      this.fileAPI.uploadImage(file).subscribe((res: any) => {
+
+        console.log(res.data.key);
+        resolve(res.data.key)
+      })
+    })
+  }
   onCustomAction(event: any) {
 
   }
