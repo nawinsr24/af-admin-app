@@ -223,7 +223,8 @@ let stringBody={data:'format=json&data='  +JSON.stringify(reqBody),order_id:even
       this.API.createShipment(stringBody).subscribe(res=>{
   this.toaster.success('Shipment Created !,')
       },err=>{
-        
+        this.toaster.success('Shipment Not Created !,')
+   
       })
     }
   })  
