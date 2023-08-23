@@ -17,7 +17,11 @@ export enum APIENDPOINTS{
 
     stockType="/admin/stocktype",
 
-    discount="/admin/discount"
+    discount="/admin/discount",
+
+    requestedOrders="/admin/requestedOrders",
+
+    cerateShipment="/del/createShipment"
 
 
 }
