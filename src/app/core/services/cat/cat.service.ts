@@ -6,52 +6,62 @@ import { ToasterService } from '../toastr/toaster.service';
 import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CatService {
-
-  constructor(private http: HttpClient, private toaster: ToasterService) {
-  }
+  constructor(private http: HttpClient, private toaster: ToasterService) {}
 
   public addCategory(data: any) {
-    return this.http.post(APIENDPOINTS.category, data)
+    return this.http.post(APIENDPOINTS.category, data);
   }
   public getAllCategory() {
-    return this.http.get(APIENDPOINTS.category)
+    return this.http.get(APIENDPOINTS.category);
   }
   public editCategory(id: any, data: any) {
-    return this.http.put(APIENDPOINTS.category + '/' + id, data)
+    return this.http.put(APIENDPOINTS.category + '/' + id, data);
   }
   public deleteCategory(id: any) {
-    return this.http.delete(APIENDPOINTS.category + '/' + id)
+    return this.http.delete(APIENDPOINTS.category + '/' + id);
   }
 
   public addSubCategory(data: any) {
-    return this.http.post(APIENDPOINTS.subCategory, data)
+    return this.http.post(APIENDPOINTS.subCategory, data);
   }
   public getAllSubCategory() {
-    return this.http.get(APIENDPOINTS.subCategory)
+    return this.http.get(APIENDPOINTS.subCategory);
   }
   public getAllSubCategoryUnderCategory(id: any) {
-    return this.http.get(APIENDPOINTS.subCategory + `?categoryId=${id}`)
+    return this.http.get(APIENDPOINTS.subCategory + `?categoryId=${id}`);
+  }
+  public putSubCat(id: any, data: any) {
+    return this.http.put(APIENDPOINTS.subCategory + '/' + id, data);
+  }
+  public deleteSubCat(id: any) {
+    return this.http.delete(APIENDPOINTS.subCategory + '/' + id);
   }
   public addSize(data: any) {
-    return this.http.post(APIENDPOINTS.size, data)
+    return this.http.post(APIENDPOINTS.size, data);
+  }
+  public putSize(id: any, data: any) {
+    return this.http.put(APIENDPOINTS.size + '/' + id, data);
+  }
+  public deleteSize(id: any) {
+    return this.http.delete(APIENDPOINTS.size + '/' + id);
   }
   public getAllSize() {
-    return this.http.get(APIENDPOINTS.size)
+    return this.http.get(APIENDPOINTS.size);
   }
 
   public addBanners(data: any) {
-    return this.http.post(APIENDPOINTS.banner, data)
+    return this.http.post(APIENDPOINTS.banner, data);
   }
   public getBanners() {
-    return this.http.get(APIENDPOINTS.banner)
+    return this.http.get(APIENDPOINTS.banner);
   }
 
   deleteItem(callBack: Observable<any>) {
-    return new Promise((resolve,rejects)=>{
-       Swal.fire({
+    return new Promise((resolve, rejects) => {
+      Swal.fire({
         title: 'Are you sure?',
         text: 'You will not be able to recover this item!',
         icon: 'warning',
@@ -61,7 +71,7 @@ export class CatService {
       }).then((result) => {
         if (result.isConfirmed) {
           console.log(callBack);
-          
+
           callBack.subscribe(
             (res) => {
               // this.catAPI.deleteCategory()
@@ -69,24 +79,24 @@ export class CatService {
                 'Deleted!',
                 'Your item has been deleted.',
                 'success'
-              ).then(res=>{
-                resolve(true)
-              })
+              ).then((res) => {
+                resolve(true);
+              });
             },
             (err) => {
-              if (err) {
+              if (err.status == 403) {
+                this.toaster.error('Item Linked,Process Cannot be done !');
+              } else if (err) {
+                this.toaster.error('Not Completed!');
+              } else {
                 this.toaster.error('Not Completed!');
               }
             }
           );
-    
         } else if (result.dismiss === Swal.DismissReason.cancel) {
           // Handle cancel logic if needed
         }
       });
-    })
-  
+    });
   }
-  
-
 }

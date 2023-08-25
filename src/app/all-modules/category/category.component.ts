@@ -7,13 +7,15 @@ import Swal from 'sweetalert2';
 @Component({
   selector: 'app-category',
   templateUrl: './category.component.html',
-  styleUrls: ['./category.component.css']
+  styleUrls: ['./category.component.css'],
 })
 export class CategoryComponent implements OnInit {
   categoryForm = new FormGroup({
     categoryName: new FormControl('', Validators.required),
-    description: new FormControl('', Validators.required)
-  })
+    description: new FormControl('', Validators.required),
+  });
+  edit = false;
+  selectedId: any;
   settings = {
     columns: {
       index: {
@@ -27,16 +29,15 @@ export class CategoryComponent implements OnInit {
       },
       category_name: {
         title: 'Category Name',
-        filter: true
+        filter: true,
       },
       description: {
         title: 'Description',
-        filter: true
-      }
+        filter: true,
+      },
     },
-    pager:
-    {
-      perPage: 8
+    pager: {
+      perPage: 50,
     },
     actions: {
       position: 'right',
@@ -44,60 +45,83 @@ export class CategoryComponent implements OnInit {
       delete: false,
       edit: false,
       custom: [
-
         {
           class: 'center',
-          name: 'edit', title: '<span class="action-icons view-icon"><i class="fa fa-edit"></i></span>'
+          name: 'edit',
+          title:
+            '<span class="action-icons view-icon"><i class="fa fa-edit"></i></span>',
         },
         {
           class: 'center',
-          name: 'delete', title: '<span class="action-icons view-icon"><i class="fa fa-trash"></i></span>'
-        }
-      ]
-    }
+          name: 'delete',
+          title:
+            '<span class="action-icons view-icon"><i class="fa fa-trash"></i></span>',
+        },
+      ],
+    },
   };
-  data
-  constructor(
-    private toaster: ToasterService,
-    private catAPI: CatService,
-  ) { }
+  data;
+  constructor(private toaster: ToasterService, private catAPI: CatService) {}
 
   ngOnInit(): void {
+    this.edit = false;
     this.catAPI.getAllCategory().subscribe((res: any) => {
       console.log(res);
-      this.data = res.data
-    })
+      this.data = res.data;
+    });
   }
   addCategory() {
-    if (this.categoryForm.invalid) return this.toaster.error('Enter Valid Details !')
-    this.catAPI.addCategory(this.categoryForm.value).subscribe(res => {
-      this.toaster.success('Category Added !')
-      this.categoryForm.reset()
-      document.getElementById('cb').click()
-      this.ngOnInit()
-    }, err => {
-      if (err) this.toaster.error('Not Added !')
-    })
-  }
-  onCustomAction(event: any) {
-    console.log(event);
-
-    if (event.action === 'delete') {
-      // this.catAPI.deleteItem().then((result) => {
-      //   if (result.isConfirmed) {
-
-      //     // this.catAPI.deleteCategory()
-      //     Swal.fire(
-      //       'Deleted!',
-      //       'Your item has been deleted.',
-      //       'success'
-      //     );
-      //   } else if (result.dismiss === Swal.DismissReason.cancel) {
-
-      //   }
-      // });
-
+    if (this.categoryForm.invalid)
+      return this.toaster.error('Enter Valid Details !');
+    if (!this.edit) {
+      this.catAPI.addCategory(this.categoryForm.value).subscribe(
+        (res) => {
+          this.toaster.success('Category Added !');
+          this.categoryForm.reset();
+          document.getElementById('cb').click();
+          this.ngOnInit();
+        },
+        (err) => {
+          if (err) this.toaster.error('Not Added !');
+        }
+      );
+    } else {
+      this.catAPI
+        .editCategory(this.selectedId, this.categoryForm.value)
+        .subscribe(
+          (res) => {
+            this.toaster.success('Category Updated !');
+            this.categoryForm.reset();
+            document.getElementById('cb').click();
+            this.ngOnInit();
+          },
+          (err) => {
+            if (err) this.toaster.error('Not Updated !');
+          }
+        );
     }
+  }
+  async onCustomAction(event: any) {
+    console.log(event);
+    this.selectedId = event.data.id;
+    if (event.action == 'edit') {
+      this.edit = true;
+      document.getElementById('add-task').click();
+      this.categoryForm.patchValue({
+        categoryName: event.data.category_name,
+        description: event.data.description,
+      });
+    }
+    if (event.action === 'delete') {
+      let r = await this.catAPI.deleteItem(
+        this.catAPI.deleteCategory(event.data.id)
+      );
+      if (r) this.ngOnInit();
+    }
+  }
 
+  cancelAll() {
+    this.categoryForm.reset();
+    this.edit = false;
   }
 }

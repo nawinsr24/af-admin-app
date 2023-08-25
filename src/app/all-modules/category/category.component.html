@@ -72,7 +72,7 @@
 
                 <div class="modal-header">
                     <h4 class="modal-title text-center">Add Category</h4>
-                    <button #cb id="cb" type="button" class="close xs-close" data-bs-dismiss="modal">×</button>
+                    <button (click)="cancelAll()" #cb id="cb" type="button" class="close xs-close" data-bs-dismiss="modal">×</button>
                 </div>
 
                 <div class="modal-body">
@@ -101,7 +101,7 @@
                                 </div>
                                 <div class="text-center py-3">
                                     <button type="button"
-                                        class="border-0 btn btn-primary btn-gradient-primary btn-rounded" (click)="addCategory()">Save</button>&nbsp;&nbsp;
+                                        class="border-0 btn btn-primary btn-gradient-primary btn-rounded" (click)="addCategory()">{{edit?"Update":"Save"}}</button>&nbsp;&nbsp;
                                     <button type="button" class="btn btn-secondary btn-rounded" (click)="cb.click()" >Cancel</button>
                                 </div>
                             </form>

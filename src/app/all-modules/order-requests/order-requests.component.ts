@@ -3,15 +3,14 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { CatService } from 'src/app/core/services/cat/cat.service';
 import { OrdersService } from 'src/app/core/services/orders/orders.service';
 import { ToasterService } from 'src/app/core/services/toastr/toaster.service';
-import Swal from 'sweetalert2'
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-order-requests',
   templateUrl: './order-requests.component.html',
-  styleUrls: ['./order-requests.component.css']
+  styleUrls: ['./order-requests.component.css'],
 })
 export class OrderRequestsComponent implements OnInit {
-
   //   {
   //     "id": 33,
   //     "user_id": 14,
@@ -52,7 +51,7 @@ export class OrderRequestsComponent implements OnInit {
   //         }
   //     ]
   // }
-  stocksInOrder: any
+  stocksInOrder: any;
   settings = {
     columns: {
       index: {
@@ -167,7 +166,7 @@ export class OrderRequestsComponent implements OnInit {
       },
     },
     pager: {
-      perPage: 8,
+      perPage: 50,
     },
     actions: {
       position: 'left',
@@ -178,56 +177,60 @@ export class OrderRequestsComponent implements OnInit {
         {
           class: 'center',
           name: 'cart',
-          title: '<span class="action-icons view-icon"><i class="fa fa-shopping-cart"></i></span>',
+          title:
+            '<span class="action-icons view-icon"><i class="fa fa-shopping-cart"></i></span>',
         },
         {
           class: 'center',
           name: 'next',
-          title: '<span class="action-icons view-icon"><i class="fa fa-arrow-circle-right"></i></span>',
+          title:
+            '<span class="action-icons view-icon"><i class="fa fa-arrow-circle-right"></i></span>',
         },
       ],
     },
   };
 
-  data
-  constructor(
-    private toaster: ToasterService,
-    private API: OrdersService,
-  ) { }
+  data;
+  constructor(private toaster: ToasterService, private API: OrdersService) {}
 
   ngOnInit(): void {
     this.API.getRequestedOrders().subscribe((res: any) => {
       console.log(res);
-      this.data = res.data
-    })
+      this.data = res.data;
+    });
   }
 
- async onCustomAction(event: any) {
+  async onCustomAction(event: any) {
     if (event.action == 'cart') {
-      this.stocksInOrder=event.data.order_stock
-      document.getElementById('add-task').click()     
+      this.stocksInOrder = event.data.order_stock;
+      document.getElementById('add-task').click();
     }
-    if(event.action=='next'){
-      let reqBody= await this.prepareDataforShipment(event.data)
-let stringBody={data:'format=json&data='  +JSON.stringify(reqBody),order_id:event.data.id}
-   console.log(stringBody);
-   Swal.fire({
-    title: 'Are you sure?',
-    text: 'Want to create Shipment !',
-    icon: 'question',
-    showCancelButton: true,
-    confirmButtonText: 'Yes, I Confirm!',
-    cancelButtonText: 'No, cancel',
-  }).then((result) => {
-    if (result.isConfirmed) {
-      this.API.createShipment(stringBody).subscribe(res=>{
-  this.toaster.success('Shipment Created !,')
-      },err=>{
-        this.toaster.success('Shipment Not Created !,')
-   
-      })
-    }
-  })  
+    if (event.action == 'next') {
+      let reqBody = await this.prepareDataforShipment(event.data);
+      let stringBody = {
+        data: 'format=json&data=' + JSON.stringify(reqBody),
+        order_id: event.data.id,
+      };
+      console.log(stringBody);
+      Swal.fire({
+        title: 'Are you sure?',
+        text: 'Want to create Shipment !',
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, I Confirm!',
+        cancelButtonText: 'No, cancel',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.API.createShipment(stringBody).subscribe(
+            (res) => {
+              this.toaster.success('Shipment Created !,');
+            },
+            (err) => {
+              this.toaster.success('Shipment Not Created !,');
+            }
+          );
+        }
+      });
     }
   }
 
@@ -271,48 +274,47 @@ let stringBody={data:'format=json&data='  +JSON.stringify(reqBody),order_id:even
   //         }
   //     ]
   // }
- async prepareDataforShipment(data:any){
+  async prepareDataforShipment(data: any) {
     return {
-      pickup_location:{
-        add:"No: 275, Pycrofts Road, Triplicane, Chennai - 600005 , Chennai, Tamil Nadu ,India 600005",
-        country: "India",
-         pin: "600005",
-                   phone: "9444258767",
-      city: "Chennai",
-      name: "SF MYTHREI 0108542",
-      state: "Tamil nadu"
+      pickup_location: {
+        add: 'No: 275, Pycrofts Road, Triplicane, Chennai - 600005 , Chennai, Tamil Nadu ,India 600005',
+        country: 'India',
+        pin: '600005',
+        phone: '9444258767',
+        city: 'Chennai',
+        name: 'SF MYTHREI 0108542',
+        state: 'Tamil nadu',
       },
-      shipments:[
-    {
-          country: "India",
+      shipments: [
+        {
+          country: 'India',
           city: data.city,
-          seller_add: "",
-          cod_amount: data.payment_type=='cod'?data.total:0,
+          seller_add: '',
+          cod_amount: data.payment_type == 'cod' ? data.total : 0,
           return_phone: data.delivery_mobile_1,
-          seller_inv_date: "",
-          seller_name: "",
+          seller_inv_date: '',
+          seller_name: '',
           pin: data.pincode,
-          seller_inv: "",
+          seller_inv: '',
           state: data.state,
           return_name: data.delivery_name,
           order: data.id,
           add: `${data.house_flat_no},${data.area},${data.city},${data.state},${data.pincode}`,
-          payment_mode: data.payment_type=='cod'?'COD':'Prepaid',
-          quantity: "1",
+          payment_mode: data.payment_type == 'cod' ? 'COD' : 'Prepaid',
+          quantity: '1',
           return_add: `${data.house_flat_no},${data.area},${data.city},${data.state},${data.pincode}`,
-          seller_cst: "",
-          seller_tin: "",
-          phone: "9603304294",
+          seller_cst: '',
+          seller_tin: '',
+          phone: '9603304294',
           total_amount: data.total,
           name: data.delivery_name,
-          return_country: "India",
+          return_country: 'India',
           return_city: data.city,
           return_state: data.state,
-          return_pin: data.pincode
-        }        
-      ]
-
-    }
+          return_pin: data.pincode,
+        },
+      ],
+    };
   }
 }
 // format=json&data={
@@ -353,11 +355,9 @@ let stringBody={data:'format=json&data='  +JSON.stringify(reqBody),order_id:even
 //           "return_state": "Maharastra",
 //           "return_pin": "400067"
 //       }
-      
+
 //   ]
 // }
-
-
 
 // {
 //   "cash_pickups_count": 0.0,

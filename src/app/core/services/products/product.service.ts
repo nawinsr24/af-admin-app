@@ -15,6 +15,12 @@ export class ProductService {
   public getAllProducts() {
     return this.http.get(APIENDPOINTS.product)
   }
+  public putProduct(id:any,data:any) {
+    return this.http.put(APIENDPOINTS.product+'/'+id,data)
+  }
+  public deleteProduct(id:any) {
+    return this.http.delete(APIENDPOINTS.product+'/'+id)
+  }
 
 
   public addStock(data: any) {
@@ -23,7 +29,12 @@ export class ProductService {
   public getAllStock() {
     return this.http.get(APIENDPOINTS.stock)
   }
-
+  public putStock(id:any,data: any) {
+    return this.http.put(APIENDPOINTS.stock+'/'+id, data)
+  }
+  public deleteStock(id:any) {
+    return this.http.delete(APIENDPOINTS.stock+'/'+id)
+  }
   public addStockImg(data: any, id: any) {
     return this.http.post(APIENDPOINTS.stockImage + id, data)
 

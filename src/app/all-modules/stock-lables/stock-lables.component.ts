@@ -42,11 +42,11 @@ export class StockLablesComponent implements OnInit {
       },
       clientStockId: {
         title: 'SKU',
-        filter: false
+        filter: true
       },
       type: {
         title: 'Label',
-        filter: false,
+        filter: true,
         valuePrepareFunction: (value: any, row: any, cell: any) => {
           return value.replace(/_/g, ' ').toLowerCase();
         },
@@ -54,7 +54,7 @@ export class StockLablesComponent implements OnInit {
     },
     pager:
     {
-      perPage: 8
+      perPage: 50,
     },
     actions: {
       position: 'right',

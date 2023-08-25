@@ -29,17 +29,11 @@ const routes: Routes = [
       { path: 'discount', component: DiscountComponent },
       { path: 'lables', component: StockLablesComponent },
       { path: 'order-requests', component: OrderRequestsComponent },
-
-
-
-
-
-
-    ]
+    ],
   },
 ];
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class AllModulesRoutingModule { }
+export class AllModulesRoutingModule {}

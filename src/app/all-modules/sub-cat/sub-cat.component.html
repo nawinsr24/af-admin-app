@@ -72,7 +72,7 @@
 
                 <div class="modal-header">
                     <h4 class="modal-title text-center">Add Sub Category</h4>
-                    <button #cb id="cb" type="button" class="close xs-close" data-bs-dismiss="modal">×</button>
+                    <button (click)="cancelAll()" #cb id="cb" type="button" class="close xs-close" data-bs-dismiss="modal">×</button>
                 </div>
 
                 <div class="modal-body">
@@ -116,13 +116,13 @@
                                     <div class="col-sm-12">
                                         <label class="col-form-label">Sub Category Display Image <span
                                                 class="text-danger">*</span></label>
-                                        <input accept="image/*" (change)="imageUploaded($event)" class="form-control" type="file" name="task-name" id="task-name"
+                                        <input formControlName="dummyC" accept="image/*" (change)="imageUploaded($event)" class="form-control" type="file" name="task-name" id="task-name"
                                             placeholder="Sub Category Name">
                                     </div>
                                 </div>
                                 <div class="text-center py-3">
                                     <button type="button"
-                                        class="border-0 btn btn-primary btn-gradient-primary btn-rounded" (click)="addSubCategory()">Save</button>&nbsp;&nbsp;
+                                        class="border-0 btn btn-primary btn-gradient-primary btn-rounded" (click)="addSubCategory()">{{edit?"Update":"Save"}}</button>&nbsp;&nbsp;
                                     <button type="button" class="btn btn-secondary btn-rounded" (click)="cb.click()" >Cancel</button>
                                 </div>
                             </form>
