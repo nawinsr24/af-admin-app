@@ -121,6 +121,7 @@ export class SubCatComponent implements OnInit {
           this.ngOnInit();
         },
         (err) => {
+          console.log(err);
           if (err) this.toaster.error('Not Added !');
         }
       );

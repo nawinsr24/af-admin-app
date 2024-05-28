@@ -177,4 +177,9 @@ export class DiscountComponent implements OnInit {
       if (r) this.ngOnInit();
     }
   }
+
+  resetAll(){
+    this.sizeForm.reset()
+    this.ngOnInit()
+  }
 }
